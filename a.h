@@ -58,7 +58,7 @@ ZV P2(Va,Vb,Vx){Ez;
  Zev(1)=o2(pblendvb)(ra,rb,Biv(1)>=16);
  return z;}
 IF(_P,P2(a,2*I2,x))IF(P_,P2(a,1|2*I2,x))
-ZV s0(ii,Vx){Vz;return z;}
+ZV s0(ii,Vx){Vz,a=x,b=z0;x=I0-(i0)i;if(4<i){i(4,zv(i)=o1(pblendvb)(v4u(a,xv(i)),v4u(b,xv(i)-64),xv(i)>=64))}else{z=P2(a,I2-i/4,b);}return z;}
 #endif
 
 Ef(_l,Sz=ie(x-.5);x-=C(e6,z);(e6)(z+127<<23)*p6(.99999994,.69315308,.24015361,.055826318,.0089893397,.0018775767))
