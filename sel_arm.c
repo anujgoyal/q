@@ -127,4 +127,11 @@ void Gb_sve(uint64_t z, uint8_t out[64]) {
     // Store result into memory
     svst1_u8(svptrue_b8(), out, bits);
 }
+
+//svindex_u8(0, 1) creates a vector [0, 1, ..., 63]
+//svdup_u64(z) duplicates z into every 64-bit lane
+//svlsr_u64_z(..., z_vec, bit_indices) shifts z by the bit index in each lane
+//svand_z(..., ..., 1) masks to get LSB
+//svst1_u8 stores the result into memory
+
 */
