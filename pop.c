@@ -69,6 +69,18 @@ ATI static g5 p5(g5 x) {
  return z;
 }
 
+
+ATI static g4 p42(g4 x){
+ // lookup # of 1's per nibble(4b)
+ g4 v = o1(pshufb)(ML,x&Mf) + o1(pshufb)(ML,o1(psrldi)(x,4)&Mf);
+ // add 4 bytes within vector
+ g4 b0 = v & Mif;
+ g4 b1 = o1(psrldi)(v,8) & Mif;
+ g4 b2 = o1(psrldi)(v,16) & Mif;
+ g4 b3 = o1(psrldi)(v,24) & Mif;
+ return b0+b1+b2+b3;
+}
+
 ATI static g4 p4(g4 x){
  // lookup # of 1's per nibble(4b)
  g4 a = o1(pshufb)(ML,x&Mf); // lower 4b of each byte
@@ -132,6 +144,9 @@ ATM static g6 pop5(Vx){Vz; i(2,Zv(i)=p5(Xv(i))) return z; }
 // popcount using 4 loops of 128b vec, ~170 bytes (inner loop: 77 bytes) => 4*77 = 308 cycles 
 ATM static g6 pop4(Vx){Vz; i(4,zv(i)=p4(xv(i))) return z; }
 
+// popcount using 4 loops of 128b vec, ~179 bytes (inner loop: 80 bytes) => 4*80 = 320 cycles 
+ATM static g6 pop42(Vx){Vz; i(4,zv(i)=p42(xv(i))) return z; }
+
 // popcount using 16 loops on 32b ints, ~90 bytes (inner loop: 45 bytes) => 16*45 = 720 cycles
 ATM static i6 pop(Vx){Iz; iR=&x; i(16,zi=B(popcount)(Ri)) return z;}
 
@@ -156,6 +171,8 @@ int main() {
  P("pop5:");pi6(z);
  z = pop4(d);
  P("pop4:");pi6(z);
+ z = pop42(d);
+ P("pop42:");pi6(z);
  z = pop(d);
  P(" pop:");pi6(z);
  z = popx(d);
